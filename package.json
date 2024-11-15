@@ -2,18 +2,24 @@
   "name": "fireguard",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.html",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "firebase-tools": "^13.24.2"
-  },
   "dependencies": {
     "dotenv": "^16.4.5",
+    "firebase": "^11.0.1",
     "npm-latest": "^2.0.0"
+  },
+  "devDependencies": {
+    "firebase-tools": "^13.24.2",
+    "vite": "^5.4.10"
   }
 }

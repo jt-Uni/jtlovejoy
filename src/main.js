@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged, signInWithRedirect, GoogleAuthProvider, getRedirectResult } from 'firebase/auth';
-import app from '../firebaseConfig.js'; // Import the initialized app
+import app from '../firebase/firebaseConfig'; // Import the initialized app
 
 const auth = getAuth(app);
 const button = document.querySelector('button');
