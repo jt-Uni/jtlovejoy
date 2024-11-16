@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+  # PHP service
+  php:
+    image: php:8.2.25-apache
+    container_name: php-container
+    volumes:
+      - ./src:/var/www/html  # Mount local src folder to Docker container
+    ports:
+      - 80:80
+    networks:
+      - app-network
+      
+  # MySQL service
+  db:
+    image: mysql:5.7
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306  # Expose MySQL on port 3306
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
