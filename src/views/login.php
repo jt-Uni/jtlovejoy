@@ -1,3 +1,7 @@
+<?php
+require __DIR__ . '/../controllers/loginController.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
