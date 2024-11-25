@@ -1,0 +1,1 @@
+{"version":1,"defects":{"registerTest::testInvalidEmail":7,"registerTest::testPasswordTooShort":7,"registerTest::testInvalidContactNumber":7},"times":{"registerTest::testFrameworkIsWorking":0.015,"registerTest::testInvalidEmail":0.006,"registerTest::testPasswordTooShort":0,"registerTest::testInvalidContactNumber":0}}
