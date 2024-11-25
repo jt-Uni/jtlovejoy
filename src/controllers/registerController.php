@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'];
     $contact = htmlspecialchars(trim($_POST['contact']));
-    
+
     // Validate inputs
     if (!preg_match('/^[a-zA-Z\s]+$/', $name)) {
         $errorMessage = 'Name must only contain letters and spaces';
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Insert into database
             $stmt = $pdo->prepare("INSERT INTO users (name, email, password, contact_number) VALUES (?, ?, ?, ?)");
             $stmt->execute([$name, $email, $hashedPassword, $contact]);
-            
+
             // Redirect to login page after successful registration
             header('Location: login.php');
             exit; // Ensure no further code is executed
