@@ -15,7 +15,7 @@ require __DIR__ . '/../controllers/registerController.php';
         <h1>Register</h1>
         
         <?php if (!empty($errorMessage)) { ?>
-            <div class="error"><?php echo $errorMessage; ?></div>
+            <div class="error"><?php echo htmlspecialchars($errorMessage); ?></div>
         <?php } ?>
 
         <form action="register.php" method="POST">
