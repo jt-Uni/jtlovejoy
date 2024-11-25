@@ -1,10 +1,10 @@
 <?php
 session_start(); // Start the session
 
-// Check if the user is logged in, if not, redirect to the login page
+// Redirect to login page if the user is not logged in
 if (!isset($_SESSION['user_id'])) {
-  header('Location: login.php');
-  exit;
+    header('Location: login.php');
+    exit;
 }
 
 require __DIR__ . '/../../config/config.php'; // Include the database configuration
@@ -13,17 +13,19 @@ require __DIR__ . '/../../config/config.php'; // Include the database configurat
 $userId = $_SESSION['user_id'];
 
 try {
-  $stmt = $pdo->prepare("SELECT name, email, contact_number FROM users WHERE id = ?");
-  $stmt->execute([$userId]);
-  $user = $stmt->fetch();
+    $stmt = $pdo->prepare("SELECT name, email, contact_number FROM users WHERE id = ?");
+    $stmt->execute([$userId]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  if (!$user) {
-    // If no user found (which shouldn't happen if session is valid)
-    die('User not found.');
-  }
-
+    if (!$user) {
+        // Handle invalid session case where user ID no longer exists
+        session_destroy();
+        header('Location: login.php');
+        exit;
+    }
 } catch (PDOException $e) {
-  die("Error fetching user data: " . $e->getMessage());
+    // Log the error and display a generic error message
+    error_log("Error fetching user data: " . $e->getMessage());
+    die("An error occurred. Please try again later.");
 }
-
 ?>
