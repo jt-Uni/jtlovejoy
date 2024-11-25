@@ -1,7 +1,3 @@
-<?php
-require __DIR__ . '/../controllers/loginController.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,8 +10,8 @@ require __DIR__ . '/../controllers/loginController.php';
     <div class="container">
         <h1>Login</h1>
 
-        <?php if (isset($errorMessage)) { ?>
-            <div class="error"><?php echo $errorMessage; ?></div>
+        <?php if (!empty($errorMessage)) { ?>
+            <div class="error"><?php echo htmlspecialchars($errorMessage); ?></div>
         <?php } ?>
 
         <form action="login.php" method="POST">
