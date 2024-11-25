@@ -1,2 +1,4 @@
-/vendor/
-.env
+/vendor
+/.env
+/docker-data
+Lovejoy-KeyPair.pem
