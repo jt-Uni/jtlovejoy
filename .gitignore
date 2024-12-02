@@ -2,3 +2,4 @@
 /.env
 /docker-data
 Lovejoy-KeyPair.pem
+/uploads
