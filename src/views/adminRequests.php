@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../controllers/adminRequestsController.php'; // This should set $requests
+require __DIR__ . '/../controllers/adminRequestsController.php';
 ?>
 
 <!DOCTYPE html>
