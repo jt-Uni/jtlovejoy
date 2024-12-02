@@ -1,13 +1,13 @@
 <?php
 session_start(); // Start the session
 
+require __DIR__ . '/../../config/config.php'; // Include the database configuration
+
 // Redirect to login page if the user is not logged in
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
-
-require __DIR__ . '/../../config/config.php'; // Include the database configuration
 
 // Fetch the user's data from the database using the session user_id
 $userId = $_SESSION['user_id'];

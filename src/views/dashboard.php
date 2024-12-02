@@ -21,7 +21,12 @@ require __DIR__ . '/../controllers/dashboardController.php';
         <h2>Your Actions</h2>
         <ul>
             <li><a href="profile.php">Edit Profile</a></li>
+            <li><a href="evaluationRequest.php">Submit an Evaluation Request</a></li>
             <li><a href="logout.php">Logout</a></li>
+            
+            <?php if ($_SESSION['role'] === 'admin'): ?>
+            <li><a href="adminRequests.php">View Evaluation Requests</a></li>
+            <?php endif; ?>
         </ul>
     </div>
 </body>
