@@ -1,22 +1,34 @@
 <?php
 require __DIR__ . '/../config/config.php'; // Include database connection
 
-// SQL to create the table
-$sql = "
-    CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
-        contact_number VARCHAR(15),
-        role ENUM('user', 'admin') DEFAULT 'user',
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
-";
-
 try {
+    // SQL to create the tables
+    $sql = "
+        CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(100) NOT NULL,
+            email VARCHAR(255) UNIQUE NOT NULL,
+            password VARCHAR(255) NOT NULL,
+            contact_number VARCHAR(15),
+            role ENUM('user', 'admin') DEFAULT 'user',
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+
+        CREATE TABLE IF NOT EXISTS evaluation_requests (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            comment TEXT NOT NULL,
+            contact_method ENUM('phone', 'email') NOT NULL,
+            photo VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        );
+    ";
+
+    // Execute the SQL
     $pdo->exec($sql);
-    echo "Table created successfully or already exists.";
+    echo "Tables created successfully or already exist.";
 } catch (PDOException $e) {
-    echo "Error creating table: " . $e->getMessage();
+    error_log("Database Migration Error: " . $e->getMessage());
+    echo "Error creating tables: " . htmlspecialchars($e->getMessage());
 }
