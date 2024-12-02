@@ -7,72 +7,70 @@ body {
 }
 
 .container {
-  width: 100%;
-  max-width: 400px;
+  width: 90%;
+  max-width: 600px;
   margin: 50px auto;
   padding: 20px;
   background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 h1 {
   text-align: center;
-  color: #333;
-  font-size: 28px;
+  color: #333333;
+  font-size: 32px;
   margin-bottom: 20px;
 }
 
-/* Form input fields */
+/* Form styles */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
 label {
   font-size: 14px;
-  margin-bottom: 6px;
-  display: block;
-  color: #555;
+  color: #555555;
+  margin-bottom: 8px;
 }
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+input[type="password"],
+select,
+textarea {
   font-size: 16px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
 }
 
 button {
-  width: 100%;
-  padding: 12px;
-  background-color: #4CAF50;
+  font-size: 18px;
+  font-weight: bold;
   color: white;
+  background-color: #4caf50;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 5px;
+  padding: 12px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
   background-color: #45a049;
 }
 
-/* Error message styling */
-.error {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 4px;
-  border: 1px solid #f5c6cb;
-}
-
-/* Link styling for login */
-p {
-  text-align: center;
-}
-
+/* Links */
 a {
   color: #007bff;
   text-decoration: none;
@@ -82,20 +80,55 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Password strength meter styles */
+/* Error messages */
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* Success messages */
+.success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* Password strength meter */
 #password-strength {
-  margin: 5px 0;
-  height: 5px;
-  width: 100%;
-  background-color: #ddd;
+  margin-top: 10px;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
 #strength-bar {
   height: 100%;
   width: 0%;
+  background-color: #ff4d4d;
+  transition: width 0.3s ease, background-color 0.3s ease;
 }
 
-#strength-text {
-  font-size: 14px;
-  text-align: center;
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  button {
+    font-size: 16px;
+  }
 }
