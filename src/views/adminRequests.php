@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../controllers/dashboardController.php'; // This should set $requests
+require __DIR__ . '/../controllers/adminRequestsController.php'; // This should set $requests
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +13,8 @@ require __DIR__ . '/../controllers/dashboardController.php'; // This should set 
 <body>
     <div class="container">
         <h1>Evaluation Requests</h1>
+
+        <p><a href="dashboard.php" class="btn">Back to Dashboard</a></p>
 
         <?php if (!empty($requests) && count($requests) > 0): ?>
             <table>

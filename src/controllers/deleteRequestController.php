@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unlink($photo_path);
             }
 
-            header("Location: adminRequests.php?success=1");
+            header("Location: ../views/adminRequests.php");
             exit;
         } else {
             die("Request not found.");
