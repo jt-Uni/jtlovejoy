@@ -17,6 +17,7 @@ services:
       - ./composer.lock:/var/www/html/composer.lock
       - ./index.php:/var/www/html/index.php
       - ./scripts:/var/www/html/scripts
+      - ./uploads:/var/www/html/uploads
     depends_on:
       - mysql
 
