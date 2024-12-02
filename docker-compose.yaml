@@ -20,6 +20,10 @@ services:
       - ./uploads:/var/www/html/uploads
     depends_on:
       - mysql
+    command: >
+      sh -c "chown -R www-data:www-data /var/www/html/uploads &&
+             chmod -R 755 /var/www/html/uploads &&
+             apache2-foreground"
 
   mysql:
     image: mysql:8.0

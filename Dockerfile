@@ -19,5 +19,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Set the correct permissions for the web directory
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
 
+# Ensure the uploads folder exists and set permissions
+RUN mkdir -p /var/www/html/uploads \
+    && chown -R www-data:www-data /var/www/html/uploads \
+    && chmod -R 755 /var/www/html/uploads
+
 # Expose port 80 for Apache
 EXPOSE 80
