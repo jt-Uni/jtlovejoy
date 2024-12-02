@@ -22,9 +22,11 @@ if (isset($_SESSION['user_id'])) {
         <p>Securely register, log in, and request evaluations for your antiques.</p>
 
         <div class="navigation">
-            <a href="src/views/register.php" class="btn">Register</a>
-            <a href="src/views/login.php" class="btn">Login</a>
-            <a href="src/views/forgotPassword.php" class="btn">Forgot Password</a>
+            <ul>
+                <li><a href="src/views/register.php" class="btn">Register</a></li>
+                <li><a href="src/views/login.php" class="btn">Login</a></li>
+                <li><a href="src/views/forgotPassword.php" class="btn">Forgot Password</a></li>
+            </ul>
         </div>
     </div>
 </body>
