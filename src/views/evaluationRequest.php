@@ -19,7 +19,7 @@ require __DIR__ . '/../controllers/evaluationRequestController.php'; // Include 
         <?php } ?>
 
         <form action="evaluationRequest.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
 
             <label for="comment">Describe the object:</label>
             <textarea name="comment" rows="5" required></textarea><br>

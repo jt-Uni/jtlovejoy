@@ -1,24 +1,27 @@
 <?php
 session_start();
-
 require __DIR__ . '/../../config/config.php'; // Database configuration
 
 // Redirect if the user is not logged in
 if (!isset($_SESSION['user_id'])) {
-  header('Location: src/views/login.php');
-  exit;
+    header('Location: login.php');
+    exit;
 }
 
-// Generate CSRF token
-$csrf_token = bin2hex(random_bytes(32));
-$_SESSION['csrf_token'] = $csrf_token;
+// Generate CSRF token if not already set
+if (!isset($_SESSION['csrf_token'])) {
+  $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 
 $errorMessage = '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Debug incoming data
+    // var_dump($_POST);
+
     // Validate CSRF token
     if (empty($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-        die("CSRF token validation failed.");
+      die("CSRF token validation failed.");
     }
     unset($_SESSION['csrf_token']); // Clear CSRF token after validation
 
@@ -31,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_FILES['photo']['name'])) {
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
         if (!in_array($_FILES['photo']['type'], $allowed_types)) {
-            $errorMessage = "Invalid file type. Only JPEG, PNG and GIF are allowed.";
-        } elseif ($_FILES['photo']['size'] > 5 * 1024 * 1024) { // 5 MB limit
+            $errorMessage = "Invalid file type. Only JPEG, PNG, and GIF are allowed.";
+        } elseif ($_FILES['photo']['size'] > 5 * 1024 * 1024) {
             $errorMessage = "File size exceeds the 5MB limit.";
         } else {
             // Move file to a secure location
@@ -45,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     }
-    
+
     // Store the request in the database
     if (empty($errorMessage)) {
         try {
@@ -59,5 +62,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $errorMessage = "Something went wrong. Please try again later.";
         }
     }
-  }
+}
 ?>
