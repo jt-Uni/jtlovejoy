@@ -12,9 +12,9 @@ if (!isset($_SESSION['user_id'])) {
   exit;
 }
 
+$reset_token = htmlspecialchars($_GET['token']); // Token passed via URL
 $csrf_token = bin2hex(random_bytes(32));
 $_SESSION['csrf_token'] = $csrf_token;
-$reset_token = htmlspecialchars($_GET['token']); // Token passed via URL
 
 $errorMessage = '';
 

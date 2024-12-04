@@ -23,6 +23,7 @@ try {
   // Generate a secure reset link
   $resetToken = bin2hex(random_bytes(16)); // Secure token generation
   $resetLink = "http://localhost:8080/src/views/resetPassword.php?token=$resetToken";
+  $expiryTime = date('Y-m-d H:i:s', strtotime('+1 hour')); // Token expires in 1 hour
 
   // Initialize PHPMailer
   $mail = new PHPMailer(true);
@@ -49,6 +50,9 @@ try {
 
   // Send the email
   $mail->send();
+
+  $stmt = $pdo->prepare("UPDATE users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?");
+  $stmt->execute([$resetToken, $expiryTime, $email]);
 
   // Output success response
   echo json_encode([
