@@ -11,7 +11,9 @@ try {
             password VARCHAR(255) NOT NULL,
             contact_number VARCHAR(15),
             role ENUM('user', 'admin') DEFAULT 'user',
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            reset_token VARCHAR(64),
+            reset_token_expiry DATETIME
         );
 
         CREATE TABLE IF NOT EXISTS evaluation_requests (
