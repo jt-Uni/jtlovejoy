@@ -263,30 +263,44 @@ $stmt->execute([$hashedPassword, $user['id']]);
 **Emailing the Token:** The token is sent to the user’s email address with a reset link:
 
 ```php
-$resetToken = bin2hex(random_bytes(16));
-$resetLink = "http://localhost:8080/src/views/resetPassword.php?token=$resetToken";
+ // Generate a secure reset link
+  $resetToken = bin2hex(random_bytes(16)); // Secure token generation
+  $resetLink = "http://localhost:8080/src/views/resetPassword.php?token=$resetToken";
+  $expiryTime = date('Y-m-d H:i:s', strtotime('+1 hour')); // Token expires in 1 hour
 
-$mail = new PHPMailer(true);
+  // Save the reset token and expiry time to the database
+  $stmt = $pdo->prepare("UPDATE users SET reset_token = ?, reset_token_expiry = ? WHERE email = ?");
+  $stmt->execute([$resetToken, $expiryTime, $email]);
 
-$mail->isSMTP();
-$mail->Host = 'smtp.sendgrid.net';
-$mail->SMTPAuth = true;
-$mail->Username = 'apikey';
-$mail->Password = ($_ENV['SENDGRID_API_KEY']);
-$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-$mail->Port = 587;
+  if ($stmt->rowCount() === 0) {
+      throw new Exception("Email not found or update failed.");
+  }
 
-$mail->setFrom('dev.jamesT@gmail.com', 'Your Application');
-$mail->addAddress($email);
+  // Initialize PHPMailer
+  $mail = new PHPMailer(true);
 
-  // Email content
-  $mail->isHTML(true);
-  $mail->Subject = 'Password Reset Request';
-  $mail->Body = "Hello,<br><br>We received a request to reset your password. You can reset it by clicking the link below:<br>
-                   <a href=\"$resetLink\">Reset Password</a><br><br>
-                   If you did not request this, please ignore this email.<br><br>Thank you.";
+  // SMTP configuration (using SendGrid)
+  $mail->isSMTP();
+  $mail->Host = 'smtp.gmail.com';
+  $mail->SMTPAuth = true;
+  $mail->Username = ($_ENV['GMAIL_USERNAME']); // Use environment variable for security
+  $mail->Password = ($_ENV['GMAIL_PASSWORD']); // Use environment variable for security
+  $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+  $mail->Port = 587;
 
-$mail->send();
+  // Email settings
+  $mail->setFrom('james.steve.taylor@gmail.com', 'Lovejoys Antique'); // Replace with your email and app name
+  $mail->addAddress($email); // Add recipient
+
+  // Email content
+  $mail->isHTML(true);
+  $mail->Subject = 'Password Reset Request';
+  $mail->Body = "Hello,<br><br>We received a request to reset your password. You can reset it by clicking the link below:<br>
+                 <a href=\"$resetLink\">Reset Password</a><br><br>
+                 If you did not request this, please ignore this email.<br><br>Thank you.";
+
+  // Send the email
+  $mail->send();
 ```
 
 **Token Verification:** The token is validated against the database to ensure it is valid and not expired.
