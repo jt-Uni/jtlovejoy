@@ -31,6 +31,8 @@ require __DIR__ . '/../controllers/loginController.php';
     </form>
 
     <p>Don't have an account? <a href="register.php">Register here</a></p>
+
+    <p><a href="forgotPassword.php">Forgot password?</a></p>
   </div>
 </body>
 
