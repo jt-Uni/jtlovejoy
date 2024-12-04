@@ -740,3 +740,16 @@ The VPC setup was validated with the following tests:
 
 - **Code Repository**: [[jtlovejoy]](https://github.com/jt-Uni/jtlovejoy.git)
 - **Recording**: [Insert Link]
+- **AWS Screenshots**
+
+- ![ApacheServerMysqlPHP](public/images/ApacheServerMysqlPHP.png)
+- ![ApacheServerMysqlPHPOverview](public/images/ApacheServerMysqlPHPOverview.png)
+- ![DetailsWebServer1](public/images/DetailsWebServer1.png)
+- ![DetailsWebServer2](public/images/DetailsWebServer2.png)
+- ![Instances](public/images/Instances.png)
+- ![RouteTables](public/images/RouteTables.png)
+- ![SecurityGroups](public/images/SecurityGroups.png)
+- ![Subnets](public/images/Subnets.png)
+- ![vpc-map](public/images/vpc-map.png)
+- ![WindowsServer2016](public/images/WindowsServer2016.png)
+- ![WindowsServerOverview](public/images/WindowsServerOverview.png)
