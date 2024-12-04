@@ -724,5 +724,5 @@ The VPC setup was validated with the following tests:
 
 ## 9. Links and Attachments
 
-- **Code Repository**: [\[fireguard\]](https://github.com/jt-Uni/fireguard.git)
+- **Code Repository**: [[jtlovejoy]](https://github.com/jt-Uni/jtlovejoy.git)
 - **Recording**: [Insert Link]

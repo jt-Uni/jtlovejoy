@@ -31,7 +31,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: fireguard
+      MYSQL_DATABASE: jtlovejoy
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
