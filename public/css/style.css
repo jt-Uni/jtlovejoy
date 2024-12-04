@@ -1,38 +1,75 @@
 /* General body and container styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  font-family: 'Orbitron', sans-serif;
+  background: radial-gradient(circle at center, #0f0c29, #302b63, #24243e);
+  color: #ffffff;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 .container {
-  width: 90%;
-  max-width: 600px;
-  margin: 50px auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 85%;
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.8));
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(#6e45e2, #88d3ce, #6e45e2);
+  opacity: 0.3;
+  filter: blur(50px);
+  animation: spin 6s linear infinite;
+  pointer-events: none; /* Prevent blocking clicks */
+  z-index: -1; /* Ensure it stays behind the content */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 h1 {
   text-align: center;
-  color: #333333;
-  font-size: 32px;
-  margin-bottom: 20px;
+  font-size: 42px;
+  margin-bottom: 30px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 10px #6e45e2;
+  position: relative;
+  z-index: 1;
 }
 
 /* Form styles */
 form {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
 }
 
 label {
-  font-size: 14px;
-  color: #555555;
-  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #f8f8f8;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 input[type="text"],
@@ -41,87 +78,107 @@ input[type="password"],
 select,
 textarea {
   font-size: 16px;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 100%;
-  box-sizing: border-box;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  outline: none;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2), 0 0 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 20px #6e45e2, inset 0 0 10px rgba(255, 255, 255, 0.6);
+  transform: scale(1.05);
 }
 
 textarea {
   resize: none;
-  height: 100px;
+  height: 150px;
 }
 
 button {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
-  color: white;
-  background-color: #4caf50;
+  color: #ffffff;
+  background: linear-gradient(90deg, #6e45e2, #88d3ce);
   border: none;
-  border-radius: 5px;
-  padding: 12px;
+  border-radius: 50px;
+  padding: 15px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow: 0 0 20px #6e45e2, 0 0 10px #88d3ce;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
 }
 
 button:hover {
-  background-color: #45a049;
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 0 30px #88d3ce, 0 0 15px #6e45e2;
 }
 
 /* Links */
 a {
-  color: #007bff;
+  color: #88d3ce;
   text-decoration: none;
+  font-weight: bold;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: #6e45e2;
+  text-shadow: 0 0 10px #ffffff;
 }
 
 /* Error messages */
 .error {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #f5c6cb;
-  border-radius: 5px;
+  background: linear-gradient(90deg, rgba(255, 0, 0, 0.7), rgba(255, 0, 0, 0.3));
+  color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
   text-align: center;
+  font-weight: bold;
+  text-shadow: 0 0 10px #ff0000;
 }
 
 /* Success messages */
 .success {
-  background-color: #d4edda;
-  color: #155724;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #c3e6cb;
-  border-radius: 5px;
+  background: linear-gradient(90deg, rgba(0, 255, 0, 0.7), rgba(0, 255, 0, 0.3));
+  color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
   text-align: center;
+  font-weight: bold;
+  text-shadow: 0 0 10px #00ff00;
 }
 
 /* Password strength meter */
 #password-strength {
-  margin-top: 10px;
-  height: 8px;
-  background-color: #e0e0e0;
-  border-radius: 4px;
+  margin-top: 20px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
   overflow: hidden;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 #strength-bar {
   height: 100%;
   width: 0%;
-  background-color: #ff4d4d;
-  transition: width 0.3s ease, background-color 0.3s ease;
+  background: linear-gradient(90deg, #ff4500, #ffa500, #00ff00);
+  transition: width 0.4s ease, background 0.4s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
   .container {
-    padding: 15px;
+    width: 95%;
+    padding: 20px;
   }
 
   h1 {
@@ -129,6 +186,7 @@ a:hover {
   }
 
   button {
-    font-size: 16px;
+    font-size: 18px;
+    padding: 12px;
   }
 }

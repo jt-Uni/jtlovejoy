@@ -6,6 +6,7 @@ require __DIR__ . '/../controllers/loginController.php';
 <html lang="en">
 
 <head>
+  <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
@@ -26,6 +27,9 @@ require __DIR__ . '/../controllers/loginController.php';
 
       <label for="password">Password:</label>
       <input type="password" name="password" required><br>
+
+      <div class="g-recaptcha" data-sitekey="6Leal5IqAAAAAPqLyPcvTiiHDhjolvOkhxdQmdBq" data-action="LOGIN"></div>
+      <br />
 
       <button type="submit">Login</button>
     </form>
