@@ -2,7 +2,7 @@
 require __DIR__ . '/../config/config.php';
 
 try {
-    $sql = "
+  $sql = "
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(100) NOT NULL,
@@ -26,9 +26,9 @@ try {
         );
     ";
 
-    $pdo->exec($sql);
-    echo "Tables created successfully or already exist.";
+  $pdo->exec($sql);
+  echo "Tables created successfully or already exist.";
 } catch (PDOException $e) {
-    error_log("Database Migration Error: " . $e->getMessage());
-    echo "Error creating tables: " . htmlspecialchars($e->getMessage());
+  error_log("Database Migration Error: " . $e->getMessage());
+  echo "Error creating tables: " . htmlspecialchars($e->getMessage());
 }

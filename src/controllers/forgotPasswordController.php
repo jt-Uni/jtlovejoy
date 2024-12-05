@@ -14,7 +14,7 @@ $dotenv->load();
 
 try {
   if (empty($_POST['email']) || !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-      throw new Exception("Invalid or missing email address.");
+    throw new Exception("Invalid or missing email address.");
   }
   $email = htmlspecialchars($_POST['email']);
 
@@ -26,7 +26,7 @@ try {
   $stmt->execute([$resetToken, $expiryTime, $email]);
 
   if ($stmt->rowCount() === 0) {
-      throw new Exception("Email not found or update failed.");
+    throw new Exception("Email not found or update failed.");
   }
 
   $mail = new PHPMailer(true);
@@ -51,12 +51,12 @@ try {
   $mail->send();
 
   echo json_encode([
-      "success" => true,
-      "message" => "If the email exists in our system, you will receive a reset link."
+    "success" => true,
+    "message" => "If the email exists in our system, you will receive a reset link."
   ]);
 } catch (Exception $e) {
   echo json_encode([
-      "success" => false,
-      "message" => "Error: " . $e->getMessage()
+    "success" => false,
+    "message" => "Error: " . $e->getMessage()
   ]);
 }
