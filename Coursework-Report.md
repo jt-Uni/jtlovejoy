@@ -5,24 +5,11 @@
 1. **Introduction**
 2. **Self-Reflection**
 3. **Task 1: User Registration**
-   - Code Snippets
-   - Database Design
-   - Security Analysis
 4. **Task 2: Secure Login Feature**
-   - Code Snippets
-   - Security Measures
 5. **Task 3: Password Policy and Recovery**
-   - Code Snippets
-   - Security Analysis
 6. **Task 4: Evaluation Request Page**
-   - Code Snippets
-   - Security Features
 7. **Task 5: Evaluation Listing Page (Admin Only)**
-   - Code Snippets
-   - Security Features
 8. **Task 6: AWS Virtual Private Cloud (VPC) Setup**
-   - Screenshots
-   - Security Considerations
 
 ## 1. Introduction
 
