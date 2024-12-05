@@ -1,34 +1,65 @@
-# Lovejoy’s Antique Evaluation Web Application - Coursework Repor
+# Lovejoy’s Antique Evaluation Web Application - Coursework Report
 
 ## Table of Contents
 
 1. **Introduction**
-2. **Task 1: User Registration**
+2. **Self-Reflection**
+3. **Task 1: User Registration**
    - Code Snippets
    - Database Design
    - Security Analysis
-3. **Task 2: Secure Login Feature**
+4. **Task 2: Secure Login Feature**
    - Code Snippets
    - Security Measures
-4. **Task 3: Password Policy and Recovery**
+5. **Task 3: Password Policy and Recovery**
    - Code Snippets
    - Security Analysis
-5. **Task 4: Evaluation Request Page**
+6. **Task 4: Evaluation Request Page**
    - Code Snippets
    - Security Features
-6. **Task 5: Evaluation Listing Page (Admin Only)**
+7. **Task 5: Evaluation Listing Page (Admin Only)**
    - Code Snippets
    - Security Features
-7. **Task 6: AWS Virtual Private Cloud (VPC) Setup**
+8. **Task 6: AWS Virtual Private Cloud (VPC) Setup**
    - Screenshots
    - Security Considerations
-8. **Links and Attachments**
-    - Code Repository
-    - Video Recording
 
 ## 1. Introduction
 
 Within this report I will document the development process and implementation for the secure web application "Lovejoy’s Antique Evaluation Web Application." This project has been designed to deliver a secure application for the evaluation of antiques. Within the application there will be security measures taken place, including SQL injection, XSS, and CSRF defense. To support this I will be providing annotated code snippets and screenshots.
+
+- **Code Repository**: [jtlovejoy](https://github.com/jt-Uni/jtlovejoy.git)
+- **Recording**: [Recording]()
+
+## Task 0: Self-reflection
+
+| **Marking Criteria**                  | **Sub Criteria**                                         | **Tick/Cross** | **Marks** |
+|---------------------------------------|----------------------------------------------------------|----------------|-----------|
+| **Password Policy**                   | Password entropy                                         |       X        |           |
+|                                       | Security questions                                       |       x        |           |
+|                                       | Password recovery                                        |       X        |           |
+| **Vulnerabilities**                   | SQL injection                                            |       X        |           |
+|                                       | XSS                                                      |       X        |           |
+|                                       | CSRF                                                     |       X        |           |
+|                                       | File Upload and Any other obvious vulnerability          |       X        |           |
+| **Authentication/Encrypted Storage**  | User registration, User login                            |       x        |           |
+|                                       | Email verification for registration                      |                |           |
+|                                       | 2-factor authentication (PIN and/or email)               |       x        |           |
+|                                       | Encrypted storage                                        |       x        |           |
+| **Obfuscation/Common Attacks**        | Brute force attack – Number of attempts                  |                |           |
+|                                       | Botnet attack – Captcha                                  |       x        |           |
+|                                       | Dictionary attack/Rainbow table attack                   |       x        |           |
+| **Features of Web Application**       | Database design                                          |       x        |           |
+|                                       | User registration                                        |       x        |           |
+|                                       | User login                                               |       x        |           |
+|                                       | Forgot password                                          |       x        |           |
+|                                       | Evaluation                                               |       x        |           |
+|                                       | List evaluation                                          |       x        |           |
+| **VPC**                               | Evidence provided                                        |       x        |           |
+| **Video**                             | All the marking criteria covered                         |       x        |           |
+| **Self-Reflection**                   | This marking grid filled out properly                    |       x        |           |
+
+**Total Marks** =
 
 ## Task 1: User Registration
 
@@ -122,11 +153,26 @@ CREATE TABLE IF NOT EXISTS users (
 Password Security:
 
 - Passwords are hashed using crypt with a secure salt.
+
+```php
+$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+```
+
 - Implementation of password requirements to enforce and prevent weak user credentials.
+
+```php
+!preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)
+```
 
 SQL Injection Prevention:
 
 - Before inputting the data into the database, the queries are prepared. This ensures the user inputs are text data and not malicious executable code.
+
+```php
+$name = htmlspecialchars(trim($_POST['name']));
+$email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+$contact = htmlspecialchars(trim($_POST['contact']));
+```
 
 Input Validation:
 
@@ -175,12 +221,30 @@ if ($user && password_verify($password, $user['password'])) {
 }
 ```
 
+### reCAPTCHA
+
+```php
+$recaptchaSecret = $_ENV['RECAPTCHA_SECRET'];
+
+if (!$responseKeys["success"]) {
+    $errorMessage = "reCAPTCHA verification failed. Please try again.";
+} else {...}
+```
+
+```html 
+<div class="g-recaptcha" data-sitekey="6Leal5IqAAAAAPqLyPcvTiiHDhjolvOkhxdQmdBq" data-action="LOGIN"></div>
+```
+
 ### Session Handling
 
 After a successful login has been completed and confirmed, a session is initiated for the user. This will ensure that their access is protected.
 
 ```php
 session_start();
+
+$_SESSION['user_id'] = $user['id'];
+$_SESSION['name'] = $user['name'];
+$_SESSION['role'] = $user['role'];
 ```
 
 #### Error Handling
@@ -204,14 +268,25 @@ Password Hashing and Verification:
 - The passwords saved to the database are securely hashed using bcrypt.
 - `password_verify()` This will ensure that the password and stored hash number match.
 
+```php
+password_verify($password, $user['password'])
+```
+
 Input Validation and Sanitization:
 
 - Make sure the inputs are sanitized and valid. This will prevent malicious data injection.
-- The `filter_var()` function is used to validate the email address.
+
+```php
+$email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+```
 
 SQL Injection Prevention:
 
 - All database queries are executed using prepared statements to mitigate SQL injection risks.
+
+```php
+$stmt = $pdo->prepare("SELECT id, name, role, password FROM users WHERE email = ?");
+```
 
 Session Security:
 
@@ -334,6 +409,31 @@ $errorMessage = 'Invalid or expired reset token.';
 Password Policy Enforcement:
 
 - Ensuring password requirements that are strong. This reduces brute force attacks.
+
+```php
+if (empty($resetToken)) {
+  $errorMessage = 'Invalid or missing reset token.';
+} elseif ($password !== $confirmPassword) {
+  $errorMessage = 'Passwords do not match.';
+} elseif (!preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
+  $errorMessage = 'Password must be at least 8 characters long, include an uppercase letter, a number, and a special character.';
+}
+```
+
+-- Rehashing the password
+
+```php
+ if ($user) {
+  $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+  $stmt = $pdo->prepare("UPDATE users SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE id = ?");
+  $stmt->execute([$hashedPassword, $user['id']]);
+
+  header('Location: login.php?message=Password reset successfully');
+  exit;
+}
+```
+
 - Providing real-time password strong increases user enjoyment.
 
 Token Security:
@@ -621,88 +721,6 @@ The Evaluation Listing Page was tested with the following scenarios:
 2. **Non-Admin Access:** Tested to make sure that users without admin roles were denied access.
 3. **File Access:** Tested to make sure that uploads were only able to be viewed by admins.
 
-## Task 6: AWS Virtual Private Cloud (VPC) Setup
-
-### Overview
-
-This task involves setting up a Virtual Private Cloud (VPC) on AWS to securely host the application infrastructure. The VPC configuration ensures isolation of resources, controlled network access, and scalability while maintaining a high level of security.
-
----
-
-### VPC Configuration
-
-#### Network Setup
-
-The VPC is divided into public and private subnets across multiple availability zones for high availability and fault tolerance. The configuration includes:
-
-1. **VPC CIDR Block:** `10.0.0.0/16`
-2. **Subnets:**
-
-- **Public Subnet 1:** `10.0.0.0/24` - Hosts the NAT gateway and web servers.
-- **Private Subnet 1:** `10.0.1.0/24` - Hosts the application server.
-- **Public Subnet 2:** `10.0.2.0/24` - Used for redundancy in Zone-Y.
-- **Private Subnet 2:** `10.0.3.0/24` - Backup private subnet.
-- **Public Subnet 3:** `10.0.4.0/24` - Reserved for scaling.
-
-#### NAT Gateway
-
-A NAT gateway is configured in the public subnet to allow instances in the private subnets to access the internet securely without exposing them to inbound internet traffic.
-
-#### Security Groups
-
-Two security groups are defined:
-
-**Web Server Security Group:**
-
-- Allows HTTP (`port 80`) and HTTPS (`port 443`) traffic.
-- Restricts SSH (`port 22`) access to specific IP addresses for administrative purposes.
-
-**Application Server Security Group:**
-
-- Allows inbound traffic only from the web server security group for internal communication.
-- No direct internet access.
-
-#### Route Tables
-
-Route tables are configured to direct traffic appropriately:
-
-- Public subnets route internet traffic via the internet gateway.
-- Private subnets route internet traffic through the NAT gateway.
-
----
-
-### Implementation Details
-
-#### Infrastructure as Code
-
-The VPC setup was automated using AWS CloudFormation or Terraform. Below is an example snippet for creating the VPC and subnets:
-
-```yaml
-Resources:
-  MyVPC:
-    Type: "AWS::EC2::VPC"
-    Properties:
-      CidrBlock: "10.0.0.0/16"
-      EnableDnsSupport: true
-      EnableDnsHostnames: true
-
-  PublicSubnet1:
-    Type: "AWS::EC2::Subnet"
-    Properties:
-      VpcId: !Ref MyVPC
-      CidrBlock: "10.0.0.0/24"
-      MapPublicIpOnLaunch: true
-      AvailabilityZone: "us-east-1a"
-
-  NATGateway:
-    Type: "AWS::EC2::NatGateway"
-    Properties:
-      SubnetId: !Ref PublicSubnet1
-      AllocationId: !GetAtt ElasticIP.AllocationId
-```
-
----
-
 ### Security Measures
 
 Network Isolation:
@@ -736,20 +754,16 @@ The VPC setup was validated with the following tests:
 3. **Internet Access:** Ensured private instances could access the internet through the NAT gateway.
 4. **Traffic Monitoring:** Monitored traffic logs to ensure expected behavior.
 
-## 9. Links and Attachments
+## Task 6: AWS Virtual Private Cloud settings screen shots
 
-- **Code Repository**: [[jtlovejoy]](https://github.com/jt-Uni/jtlovejoy.git)
-- **Recording**: [Insert Link]
-- **AWS Screenshots**
-
-- ![ApacheServerMysqlPHP](public/images/ApacheServerMysqlPHP.png)
-- ![ApacheServerMysqlPHPOverview](public/images/ApacheServerMysqlPHPOverview.png)
+- ![vpc-map](public/images/vpc-map.png)
 - ![DetailsWebServer1](public/images/DetailsWebServer1.png)
 - ![DetailsWebServer2](public/images/DetailsWebServer2.png)
 - ![Instances](public/images/Instances.png)
 - ![RouteTables](public/images/RouteTables.png)
 - ![SecurityGroups](public/images/SecurityGroups.png)
 - ![Subnets](public/images/Subnets.png)
-- ![vpc-map](public/images/vpc-map.png)
 - ![WindowsServer2016](public/images/WindowsServer2016.png)
 - ![WindowsServerOverview](public/images/WindowsServerOverview.png)
+- ![ApacheServerMysqlPHP](public/images/ApacheServerMysqlPHP.png)
+- ![ApacheServerMysqlPHPOverview](public/images/ApacheServerMysqlPHPOverview.png)
