@@ -734,7 +734,7 @@ Backup and Redundancy:
 
 ## Task 6: AWS Virtual Private Cloud settings screen shots
 
-- ![vpc-map](public/images/vpc-map.png)
+- ![Vpc Map](public/images/vpcInstance.png)
 - ![DetailsWebServer1](public/images/DetailsWebServer1.png)
 - ![DetailsWebServer2](public/images/DetailsWebServer2.png)
 - ![Instances](public/images/Instances.png)
