@@ -22,31 +22,31 @@ Within this report I will document the development process and implementation fo
 
 | **Marking Criteria**                  | **Sub Criteria**                                         | **Tick/Cross** | **Marks** |
 |---------------------------------------|----------------------------------------------------------|----------------|-----------|
-| **Password Policy**                   | Password entropy                                         |       X        |           |
+| **Password Policy**                   | Password entropy                                         |       X        |    12     |
 |                                       | Security questions                                       |       x        |           |
 |                                       | Password recovery                                        |       X        |           |
-| **Vulnerabilities**                   | SQL injection                                            |       X        |           |
+| **Vulnerabilities**                   | SQL injection                                            |       X        |    13     |
 |                                       | XSS                                                      |       X        |           |
 |                                       | CSRF                                                     |       X        |           |
 |                                       | File Upload and Any other obvious vulnerability          |       X        |           |
-| **Authentication/Encrypted Storage**  | User registration, User login                            |       x        |           |
-|                                       | Email verification for registration                      |                |           |
+| **Authentication/Encrypted Storage**  | User registration, User login                            |       x        |    10     |
+|                                       | Email verification for  registration                     |                |           |
 |                                       | 2-factor authentication (PIN and/or email)               |       x        |           |
 |                                       | Encrypted storage                                        |       x        |           |
-| **Obfuscation/Common Attacks**        | Brute force attack – Number of attempts                  |                |           |
+| **Obfuscation/Common Attacks**        | Brute force attack – Number of attempts                  |                |     8     |
 |                                       | Botnet attack – Captcha                                  |       x        |           |
 |                                       | Dictionary attack/Rainbow table attack                   |       x        |           |
-| **Features of Web Application**       | Database design                                          |       x        |           |
+| **Features of Web Application**       | Database design                                          |       x        |     30    |
 |                                       | User registration                                        |       x        |           |
 |                                       | User login                                               |       x        |           |
 |                                       | Forgot password                                          |       x        |           |
 |                                       | Evaluation                                               |       x        |           |
 |                                       | List evaluation                                          |       x        |           |
-| **VPC**                               | Evidence provided                                        |       x        |           |
-| **Video**                             | All the marking criteria covered                         |       x        |           |
-| **Self-Reflection**                   | This marking grid filled out properly                    |       x        |           |
+| **VPC**                               | Evidence provided                                        |       x        |     10    |
+| **Video**                             | All the marking criteria covered                         |       x        |     6     |
+| **Self-Reflection**                   | This marking grid filled out properly                    |       x        |     4     |
 
-**Total Marks** =
+**Total Marks** = 93
 
 ## Task 1: User Registration
 
@@ -731,15 +731,6 @@ Monitoring and Logging:
 Backup and Redundancy:
 
 - Resources are distributed across multiple availability zones to prevent downtime.
-
-### Testing and Results
-
-The VPC setup was validated with the following tests:
-
-1. **Connectivity Tests:** Verified public and private subnet connectivity using SSH and ping commands.
-2. **Access Control:** Confirmed that only allowed IPs could access the public subnets.
-3. **Internet Access:** Ensured private instances could access the internet through the NAT gateway.
-4. **Traffic Monitoring:** Monitored traffic logs to ensure expected behavior.
 
 ## Task 6: AWS Virtual Private Cloud settings screen shots
 
