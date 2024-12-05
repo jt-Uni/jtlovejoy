@@ -29,7 +29,7 @@
 Within this report I will document the development process and implementation for the secure web application "Lovejoy’s Antique Evaluation Web Application." This project has been designed to deliver a secure application for the evaluation of antiques. Within the application there will be security measures taken place, including SQL injection, XSS, and CSRF defense. To support this I will be providing annotated code snippets and screenshots.
 
 - **Code Repository**: [jtlovejoy](https://github.com/jt-Uni/jtlovejoy.git)
-- **Recording**: [Recording]()
+- **Recording**: [Recording](https://sussex.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=c99003b5-3af5-4229-b776-b23d0004f76f)
 
 ## Task 0: Self-reflection
 
