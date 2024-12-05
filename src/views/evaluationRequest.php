@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../controllers/evaluationRequestController.php'; // Include the controller
+require __DIR__ . '/../controllers/evaluationRequestController.php';
 ?>
 
 <!DOCTYPE html>

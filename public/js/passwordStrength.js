@@ -1,5 +1,3 @@
-// passwordStrength.js
-
 document.addEventListener("DOMContentLoaded", function () {
   const passwordInput = document.getElementById("password");
   const strengthBar = document.getElementById("strength-bar");
@@ -9,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
       const password = passwordInput.value;
       const strength = checkPasswordStrength(password);
 
-      // Update the strength bar and text
       strengthBar.style.width = strength.percentage + "%";
       strengthBar.style.backgroundColor = strength.color;
       strengthText.textContent = strength.message;

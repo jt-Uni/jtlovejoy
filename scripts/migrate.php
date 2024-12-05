@@ -1,8 +1,7 @@
 <?php
-require __DIR__ . '/../config/config.php'; // Include database connection
+require __DIR__ . '/../config/config.php';
 
 try {
-    // SQL to create the tables
     $sql = "
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -27,7 +26,6 @@ try {
         );
     ";
 
-    // Execute the SQL
     $pdo->exec($sql);
     echo "Tables created successfully or already exist.";
 } catch (PDOException $e) {

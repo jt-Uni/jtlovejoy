@@ -2,12 +2,10 @@
 session_start();
 require __DIR__ . '/../../config/config.php';
 
-// Check if the user is an admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
   die("Access denied. Admins only.");
 }
 
-// Fetch evaluation requests from the database
 try {
   $stmt = $pdo->query("
         SELECT 
@@ -25,5 +23,5 @@ try {
   $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
   error_log("Database error fetching requests: " . $e->getMessage());
-  $requests = []; // Default to an empty array on failure
+  $requests = [];
 }

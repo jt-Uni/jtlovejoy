@@ -1,14 +1,13 @@
 <?php
-session_start(); // Ensure session is started
+session_start();
 
-require __DIR__ . '/../../config/config.php'; // Database configuration
+require __DIR__ . '/../../config/config.php';
 
 $reset_token = $_GET['token'] ?? $_POST['reset_token'] ?? null;
 if (!$reset_token) {
     die("Invalid or missing reset token.");
 }
 
-// Generate CSRF token only if it doesn't exist
 if (!isset($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
@@ -22,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $confirmPassword = $_POST['confirm_password'];
     $csrfToken = $_POST['csrf_token'];
 
-    // CSRF token validation
     if (!hash_equals($_SESSION['csrf_token'], $csrfToken)) {
         die("Invalid CSRF token.");
     }
@@ -35,16 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errorMessage = 'Password must be at least 8 characters long, include an uppercase letter, a number, and a special character.';
     } else {
         try {
-            // Verify token and expiry
             $stmt = $pdo->prepare("SELECT id FROM users WHERE reset_token = ? AND reset_token_expiry > NOW()");
             $stmt->execute([$resetToken]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {
-                // Hash the new password
                 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-                // Update password and clear token
                 $stmt = $pdo->prepare("UPDATE users SET password = ?, reset_token = NULL, reset_token_expiry = NULL WHERE id = ?");
                 $stmt->execute([$hashedPassword, $user['id']]);
 
